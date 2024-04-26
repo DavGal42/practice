@@ -2,8 +2,10 @@ import requests
 
 api_key = '4ce14ec96659e7a0d805d06e96444648'
 
+
 def get_city_name():
     name = input('Enter a city name: ')
+
     return name
 
 
@@ -24,12 +26,14 @@ def check_city_name():
         if data == {'cod': '404', 'message': 'city not found'}:
             print('There is no such city.Try again')
             continue
+
         return data
 
 
 def main():
     answer = check_city_name()
     print(answer)
+
 
 if __name__ == '__main__':
     main()
