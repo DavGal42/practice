@@ -10,7 +10,7 @@ def get_city_name():
 
 
 def get_data(key, city_name):
-    url = f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}'
+    url = f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={key}'
 
     response = requests.get(url)
 
