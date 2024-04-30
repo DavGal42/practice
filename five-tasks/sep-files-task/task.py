@@ -2,7 +2,25 @@ import os
 import sys
 
 
+'''
+
+Author: David Galstyan
+Date: 28.04.2024
+Description: This code seperates files from each other
+
+'''
+
+
+
 def get_directory():
+	'''
+    
+        Description: enter directory name in terminal and get it
+        Parameters: None
+        Returns: directory's name
+    
+    '''
+
 	try:	 
 		dir_name = sys.argv[1]
 		return dir_name
@@ -11,12 +29,28 @@ def get_directory():
 
 
 def get_files_lists(directory):
+	'''
+    
+        Description: get list of all files in the given directory
+        Parameters: directory's name
+        Returns: list of files
+    
+    '''
+
 	ml = os.listdir(directory)
 
 	return ml
 
 
 def get_files_dict(flist):
+	'''
+    
+        Description: seperates types of files and give dict with seperated files
+        Parameters: list of files
+        Returns: dict of seperated files
+    
+    '''
+		
 	md = {}
 
 	txt_files = []
@@ -46,6 +80,14 @@ def get_files_dict(flist):
 	
 
 def main():
+	'''
+    
+        Description: The main function
+        Parameters: None
+        Returns: sorted files
+    
+    '''
+
 	directory = get_directory()
 	flist = get_files_lists(directory)
 	files = get_files_dict(flist)
