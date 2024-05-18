@@ -1,5 +1,6 @@
 import xlsxwriter
 
+
 def get_content(fname):
     with open(fname) as f:
         return f.read()
