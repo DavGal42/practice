@@ -1,0 +1,8 @@
+{
+    "name": "John",
+    "age": 30,
+    "city": "New York",
+    "married": true,
+    "children": ["Anna", "Peter"],
+    "pets": {"dog": "Buddy", "cat": "Misty"}
+  }
