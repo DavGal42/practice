@@ -1,6 +1,3 @@
-import argparse
-import enchant
-
 """
     Author: David Galstyan
     
@@ -11,8 +8,11 @@ import enchant
                 The script takes 2 arguments: “-input” for the input file, “-output” for the output file.
 """
 
-SPELL_CHECKER = enchant.Dict("en_US")
+import argparse
+import enchant
 
+
+SPELL_CHECKER = enchant.Dict("en_US")
 
 def get_fnames():
     """
@@ -29,7 +29,6 @@ def get_fnames():
 
     return args.input, args.output
 
-
 def get_content(fname):
     """
         Description: There we open the file and read it
@@ -38,9 +37,8 @@ def get_content(fname):
 
         Returns: content of the file
     """
-    with open(fname) as f:
+    with open(fname, 'r') as f:
         return f.read()
-
 
 def get_words(cnt):
     """
@@ -52,7 +50,6 @@ def get_words(cnt):
     """
     words = cnt.split()
     return words
-
 
 def check_words(words):
     """
@@ -72,7 +69,6 @@ def check_words(words):
             words[i] = choose
     return words
 
-
 def write_in_file(fname, correct):
     """
         Description: There we open the file join the list of words and put them into the file
@@ -86,7 +82,6 @@ def write_in_file(fname, correct):
 
     return f
 
-
 def main():
     """
         The main function
@@ -98,7 +93,6 @@ def main():
     write_in_file(output_file, correct_txt)
     new_cnt = get_content(output_file)
     print(new_cnt)
-
 
 if __name__ == "__main__":
     main()

@@ -1,13 +1,12 @@
-import pygame
-import time
-
-
 """
     Author: David Galstyan
     Description: This is a simple game created with the language python and module pygame
                 There is a person who wants to survive and his opponents are ghosts.He can
                 go left,right and jump
 """
+
+import pygame
+import time
 
 
 clock = pygame.time.Clock()

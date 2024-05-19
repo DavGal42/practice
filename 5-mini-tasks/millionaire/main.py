@@ -1,7 +1,3 @@
-import tkinter as tk
-import random
-
-
 """
 Author: David Galstyan
 Description: This is a game “Who wants to be a millionaire”. The user enters the nickname,
@@ -9,6 +5,8 @@ Description: This is a game “Who wants to be a millionaire”. The user enters
             Each help can be used just once. At the end of the game, the user is displayed in the top players board.
 """
 
+import tkinter as tk
+import random
 
 questions = [
 	"What is the capital of France?Paris,Moscow,Yerevan,Berlin",

@@ -1,10 +1,10 @@
-import tkinter as tk
-
 """
 Author: David Galstyan
 Description: 
 
 """
+
+import tkinter as tk
 
 def create_first_window():
     first_window = tk.Tk()
