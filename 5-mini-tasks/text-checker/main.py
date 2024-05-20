@@ -1,16 +1,14 @@
 """
-    Author: David Galstyan
-    
-    Description: This is a script that checks the orthographic mistakes in the given text.
-                It finds the mistakes and tries to correct them with the help of the user.
-                It should suggest versions for the correct word, and the user should choose the best one.
+Author: David Galstyan
 
-                The script takes 2 arguments: “-input” for the input file, “-output” for the output file.
+Description: This is a script that checks the orthographic mistakes in the given text.
+It finds the mistakes and tries to correct them with the help of the user.
+It should suggest versions for the correct word, and the user should choose the best one.
+The script takes 2 arguments: “-input” for the input file, “-output” for the output file.
 """
 
 import argparse
 import enchant
-
 
 SPELL_CHECKER = enchant.Dict("en_US")
 
