@@ -42,6 +42,7 @@ def get_index():
         i = random.randint(0, len(questions) - 1)
         if i not in index:
             index.append(i)
+            
     return index
 
 def get_questions(ind):
@@ -55,6 +56,7 @@ def get_questions(ind):
     quests = []
     for i in ind:
         quests.append(questions[i])
+
     return quests
 
 def get_questions_dict(quests):
@@ -69,6 +71,7 @@ def get_questions_dict(quests):
     for question in quests:
         q, a = question.split("?")
         questions_dict[q] = a.split(",")
+
     return questions_dict
 
 def on_button_click():
@@ -81,28 +84,9 @@ def on_button_click():
     name = entry.get()
     if name:
         root.destroy()
-        open_second_window(name)
+        open_third_window()
+
     return name
-
-def open_second_window(name):
-    """
-        Description: Functionality of second window
-
-        Parameters: Name of a user
-    """
-    second_window = tk.Tk()
-    second_window.title("Welcome")
-    second_window.configure(bg='#142666')
-
-    label = tk.Label(second_window, text=f"Hello, {name}!")
-    label.pack(pady=20)
-    label.configure(bg='#142666', fg='#8392c9', font=('Roboto', 10, 'bold'))
-
-    button = tk.Button(second_window, text="Start", command=lambda: [second_window.destroy(), open_third_window()])
-    button.pack(pady=10)
-    button.configure(bg='#8392c9')
-
-    second_window.mainloop()
 
 def open_third_window():
     """
@@ -137,7 +121,6 @@ def open_third_window():
             submit_button.config(state=tk.DISABLED)
             user_score = count
             save_score_to_file(name, user_score)
-
 
     def next_question():
         """
