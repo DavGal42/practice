@@ -57,7 +57,7 @@ def check_words(words):
 
         Returns: corrected words
     """
-    for i in range(len(words)):
+    for i, v in enumerate(words):
         if not SPELL_CHECKER.check(words[i]):
             correct = SPELL_CHECKER.suggest(words[i])
             print(f'Wrong word: {words[i]}')
