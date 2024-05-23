@@ -31,11 +31,9 @@ author = label2.render('Created by: David Galstyan', False, 'White')
 restart_label = label1.render('Play Again', False, (115, 132, 148))
 restart_label_rect = restart_label.get_rect(topleft=(50, 200))
 
-# Sound settings
 sound = pygame.mixer.Sound('5-mini-tasks/game/sounds/bg-sound.mp3')
 sound.play()
 
-# Game state
 game_active = True
 score = 0
 
@@ -63,7 +61,7 @@ def spawn_falling_object():
         falling_objects.append(FallingObject(bomb, random.randint(0, 253 - bomb.get_width()), 0, falling_speed))
 
 spawn_event = pygame.USEREVENT + 1
-pygame.time.set_timer(spawn_event, 1500)  # Increased interval to slow down spawn rate
+pygame.time.set_timer(spawn_event, 1500)
 
 running = True
 
@@ -90,12 +88,11 @@ while running:
                 if obj.image == bomb:
                     game_active = False
                 elif obj.image == coin:
-                    score += 1  # Increase score when a coin is caught
+                    score += 1
 
             elif obj.y > 450:
                 falling_objects.remove(obj)
 
-        # Display score
         score_text = label2.render(f'Score: {score}', False, 'White')
         game_screen.blit(score_text, (10, 10))
 
@@ -106,13 +103,13 @@ while running:
         game_screen.blit(restart_label, restart_label_rect)
         
         final_score_text = label2.render(f'Final Score: {score}', False, 'White')
-        game_screen.blit(final_score_text, (60, 150))  # Display the final score
+        game_screen.blit(final_score_text, (60, 150))
 
         mouse = pygame.mouse.get_pos()
         if restart_label_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
             game_active = True
             falling_objects.clear()
-            score = 0  # Reset score
+            score = 0
 
     pygame.display.update()
 
