@@ -84,88 +84,87 @@ def on_button_click():
     name = entry.get()
     if name:
         root.destroy()
-        open_third_window()
+        open_second_window()
 
     return name
 
-def open_third_window():
+def open_second_window():
     """
-        Description: Functionality of third window
+        Description: Functionality of second window
     """
-    global question_label, answer_entry, result_label, score_label, submit_button
+    global question_label, answer_entry, result_label, score_label, submit_button, questions_list, count, current_index
     index = get_index()
     questions = get_questions(index)
     questions_dict = get_questions_dict(questions)
 
-    def check_answer():
-        """
-            Description: Checks the answer user has input
-        """
-        global current_correct_answer, count, current_index
-        answer = answer_entry.get().strip()
-        
-        if answer.lower() == current_correct_answer.lower():
-            result_label.config(text="Correct!")
-            count += 1
-        else:
-            result_label.config(text=f"Wrong. The correct answer was: {current_correct_answer}")
+    second_window = tk.Tk()
+    second_window.geometry('400x300')
+    second_window.title("Who Wants To Be A Millionaire?")
+    second_window.configure(bg='#142666')
 
-        score_label.config(text=f"Score: {count}")
-        current_index += 1
-
-        if current_index < len(questions_list):
-            next_question()
-        else:
-            result_label.config(text=f"You answered {count} questions correctly.")
-            answer_entry.config(state=tk.DISABLED)
-            submit_button.config(state=tk.DISABLED)
-            user_score = count
-            save_score_to_file(name, user_score)
-
-    def next_question():
-        """
-            Description: The function will run until the questions run out
-        """
-        global current_question, current_correct_answer, current_index
-        q, a = questions_list[current_index]
-        current_question = q
-        current_correct_answer = a[0]
-        random.shuffle(a)
-        question_label.config(text=current_question)
-        answer_entry.delete(0, tk.END)
-
-    third_window = tk.Tk()
-    third_window.geometry('400x300')
-    third_window.title("Who Wants To Be A Millionaire?")
-    third_window.configure(bg='#142666')
-
-    question_label = tk.Label(third_window, text="", fg='#8392c9', font=('Roboto', 10, 'bold'))
+    question_label = tk.Label(second_window, text="", fg='#8392c9', font=('Roboto', 10, 'bold'))
     question_label.pack(pady=20)
     question_label.configure(bg='#142666')
 
-    answer_entry = tk.Entry(third_window, width=30)
+    answer_entry = tk.Entry(second_window, width=30)
     answer_entry.pack(pady=5)
 
-    submit_button = tk.Button(third_window, text="Submit", command=check_answer)
+    submit_button = tk.Button(second_window, text="Submit", command=check_answer)
     submit_button.pack(pady=10)
     submit_button.configure(bg='#8392c9')
 
-    result_label = tk.Label(third_window, text="", fg='#8392c9', font=('Roboto', 10, 'bold'))
+    result_label = tk.Label(second_window, text="", fg='#8392c9', font=('Roboto', 10, 'bold'))
     result_label.pack(pady=20)
     result_label.configure(bg='#142666')
 
-    score_label = tk.Label(third_window, text="Score: 0", fg='#8392c9', font=('Roboto', 10, 'bold'))
+    score_label = tk.Label(second_window, text="Score: 0", fg='#8392c9', font=('Roboto', 10, 'bold'))
     score_label.pack(pady=10)
     score_label.configure(bg='#142666')
 
-    global questions_list, count, current_index
     questions_list = list(questions_dict.items())
     random.shuffle(questions_list)
     count = 0
     current_index = 0
     next_question()
 
-    third_window.mainloop()
+    second_window.mainloop()
+
+def check_answer():
+    """
+        Description: Checks the answer user has input
+    """
+    global current_correct_answer, count, current_index
+    answer = answer_entry.get().strip()
+    
+    if answer.lower() == current_correct_answer.lower():
+        result_label.config(text="Correct!")
+        count += 1
+    else:
+        result_label.config(text=f"Wrong. The correct answer was: {current_correct_answer}")
+
+    score_label.config(text=f"Score: {count}")
+    current_index += 1
+
+    if current_index < len(questions_list):
+        next_question()
+    else:
+        result_label.config(text=f"You answered {count} questions correctly.")
+        answer_entry.config(state=tk.DISABLED)
+        submit_button.config(state=tk.DISABLED)
+        user_score = count
+        save_score_to_file(name, user_score)
+
+def next_question():
+    """
+        Description: The function will run until the questions run out
+    """
+    global current_question, current_correct_answer, current_index
+    q, a = questions_list[current_index]
+    current_question = q
+    current_correct_answer = a[0]
+    random.shuffle(a)
+    question_label.config(text=current_question)
+    answer_entry.delete(0, tk.END)
 
 def save_score_to_file(name, score):
     """
@@ -182,8 +181,7 @@ def save_score_to_file(name, score):
     scores = []
     for line in f:
         person = line.strip().split(": ")
-        if len(person) == 2:
-            scores.append((person[0], int(person[1])))
+        scores.append((person[0], int(person[1])))
     
     scores.sort(key=lambda x: x[1], reverse=True)
 

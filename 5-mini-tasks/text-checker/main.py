@@ -10,7 +10,7 @@ The script takes 2 arguments: “-input” for the input file, “-output” for
 import argparse
 import enchant
 
-SPELL_CHECKER = enchant.Dict("en_US")
+CHECKER = enchant.Dict("en_US")
 
 def get_fnames():
     """
@@ -58,8 +58,8 @@ def check_words(words):
         Returns: corrected words
     """
     for i, v in enumerate(words):
-        if not SPELL_CHECKER.check(words[i]):
-            correct = SPELL_CHECKER.suggest(words[i])
+        if not CHECKER.check(words[i]):
+            correct = CHECKER.suggest(words[i])
             print(f'Wrong word: {words[i]}')
             print('It seems that your word is not correct.Choose from these')
             print(correct)

@@ -16,7 +16,7 @@ pygame.display.set_icon(icon)
 background_image = pygame.image.load('5-mini-tasks/game/imgs/background.jpg')
 
 basket = pygame.image.load('5-mini-tasks/game/imgs/basket.png')
-basket_speed = 1
+basket_speed = 0.5
 basket_x = 100
 basket_y = 412
 
