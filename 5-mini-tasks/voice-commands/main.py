@@ -5,40 +5,39 @@
 """
 
 import speech_recognition as sr
-import subprocess
+import os
 
 # Initialize the recognizer
-recognizer = sr.Recognizer()
+r = sr.Recognizer()
 
-# Function to recognize speech from the microphone
+
 def recognize_speech_from_microphone():
     with sr.Microphone() as source:
-        print("Please say something...")
-        audio = recognizer.listen(source)
+        print("Listening for the command to open Google Chrome...")
+        r.adjust_for_ambient_noise(source)  # Adjust for ambient noise
+        audio = r.listen(source)
 
-    try:
-        # Use Google Web Speech API to recognize speech
-        command = recognizer.recognize_google(audio)
-        print(f"You said: {command}")
-        return command.lower()
-    except sr.UnknownValueError:
-        print("Could not understand the audio")
-        return None
-    except sr.RequestError:
-        print("Could not request results from the speech recognition service")
-        return None
+        try:
+            command = r.recognize_google(audio)
+            print("You said: " + command)
+            return command
+        except sr.UnknownValueError:
+            print("Sorry, I did not understand that.")
+            return None
+        except sr.RequestError:
+            print("Could not request results; check your network connection.")
+            return None
 
-# Main function
+
 def main():
-    command = recognize_speech_from_microphone()
-    if command:
-        if "open chrome" in command:
-            # Open Google Chrome browser
-            subprocess.run(["open", "-a", "Google Chrome"])  # For macOS
-            # subprocess.run(["google-chrome"])  # For Linux
-            # subprocess.run(["start", "chrome"])  # For Windows
-        else:
-            print("Command not recognized or not supported.")
+    while True:
+        command = recognize_speech_from_microphone()
+        if command and "open Google Chrome" in command.lower():
+            print("Opening Google Chrome...")
+            os.system("start chrome")  # For Windows
+            # os.system("open -a 'Google Chrome'")  # For macOS
+            break
+
 
 if __name__ == "__main__":
     main()

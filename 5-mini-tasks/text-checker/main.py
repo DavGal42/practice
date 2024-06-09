@@ -8,14 +8,13 @@ The script takes 2 arguments: “-input” for the input file, “-output” for
 """
 
 import argparse
-import enchant
+from spellchecker import SpellChecker
 
-CHECKER = enchant.Dict("en_US")
+spell = SpellChecker()
 
 def get_fnames():
     """
-        Description: There we use argparse to get names of the input and output files
-
+        Use argparse to get names of the input and output files
         Returns: input and output files names
     """
     parser = argparse.ArgumentParser()
@@ -27,58 +26,53 @@ def get_fnames():
 
     return args.input, args.output
 
+
 def get_content(fname):
     """
-        Description: There we open the file and read it
-
+        Open the file and read it
         Parameters: name of the file
-
         Returns: content of the file
     """
-    with open(fname, 'r') as f:
+    with open(fname, 'r', encoding='utf-8') as f:
         return f.read()
+
 
 def get_words(cnt):
     """
-        Description: There we get each word in the file in list
-
+        Get each word in the file in a list
         Parameters: content of the file
-
         Returns: each word of the file
     """
     words = cnt.split()
     return words
 
+
 def check_words(words):
     """
-        There we correct the wrong words and replace them
-
+        Correct the wrong words and replace them
         Parameters: each word of the file
-
         Returns: corrected words
     """
     for i, v in enumerate(words):
-        if not CHECKER.check(words[i]):
-            correct = CHECKER.suggest(words[i])
+        if v not in spell:
+            correct = list(spell.candidates(v))
             print(f'Wrong word: {words[i]}')
-            print('It seems that your word is not correct.Choose from these')
+            print('It seems that your word is not correct. Choose from these:')
             print(correct)
             choose = input('Choose: ')
             words[i] = choose
     return words
 
+
 def write_in_file(fname, correct):
     """
-        Description: There we open the file join the list of words and put them into the file
-
+        Open the file, join the list of words, and put them into the file
         Parameters: filename and correct words
-
         Returns: file with corrected text
     """
-    with open(fname, 'w') as f:
+    with open(fname, 'w', encoding='utf-8') as f:
         f.write(' '.join(correct))
 
-    return f
 
 def main():
     """
@@ -91,6 +85,7 @@ def main():
     write_in_file(output_file, correct_txt)
     new_cnt = get_content(output_file)
     print(new_cnt)
+
 
 if __name__ == "__main__":
     main()
