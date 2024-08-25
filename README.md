@@ -2,6 +2,6 @@
 
 ## Contents
 
-🐍 Python
+🐍 [Python](python)
 
-📝 Bash
+📝 [Bash](bash-script)
