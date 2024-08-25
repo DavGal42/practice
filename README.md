@@ -1,0 +1,7 @@
+# 🛠️ Practice
+
+## Contents
+
+🐍 Python
+
+📝 Bash
