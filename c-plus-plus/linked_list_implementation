@@ -1,0 +1,59 @@
+#include <iostream>
+#include <vector>
+
+
+class Node {
+    public:
+        int data;
+
+        Node(int val) : data(val) {}
+};
+
+
+class LinkedList {
+    private:
+        std::vector<Node> nodes;
+
+    public:
+        void append(int val) {
+            nodes.push_back(val); 
+        }
+
+        void print() const {
+            for (const auto& node : nodes) {
+                std::cout << node.data << " ";
+            }
+            std::cout << std::endl;
+        }
+
+        void deleteValue(int val) {
+            for (auto it = nodes.begin(); it != nodes.end(); ++it) {
+                if (it->data == val) {
+                    nodes.erase(it);
+                    return; 
+                }
+                else {
+                    std::cout << "There is no such element in the list.\n";
+                    return;
+                }
+            }
+        }
+};
+
+
+int main() {
+    LinkedList list;
+    list.append(1);
+    list.append(2);
+    list.append(3);
+    list.append(4);
+
+    std::cout << "Print list's elements: ";
+    list.print();
+
+    std::cout << "Deleting an element from the list." << std::endl;
+    list.deleteValue(2);
+    list.print();
+
+    return 0;
+}
