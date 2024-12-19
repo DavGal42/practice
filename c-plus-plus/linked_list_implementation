@@ -1,41 +1,84 @@
 #include <iostream>
-#include <vector>
 
 
 class Node {
     public:
         int data;
+        Node* next;
 
-        Node(int val) : data(val) {}
-};
+        Node(int val) : data(val), next(nullptr) {}
+    };
 
 
 class LinkedList {
     private:
-        std::vector<Node> nodes;
+        Node* head; 
 
     public:
+        LinkedList() : head(nullptr) {}
+
         void append(int val) {
-            nodes.push_back(val); 
+            Node* newNode = new Node(val); 
+
+            if (!head) {
+                head = newNode;  
+            } else {
+                Node* temp = head;
+
+                while (temp->next) {
+                    temp = temp->next;
+                }
+
+                temp->next = newNode;
+            }
         }
 
         void print() const {
-            for (const auto& node : nodes) {
-                std::cout << node.data << " ";
+            Node* temp = head;
+
+            while (temp) {
+                std::cout << temp->data << " ";
+                temp = temp->next; 
             }
+
             std::cout << std::endl;
         }
 
-        void deleteValue(int val) {
-            for (auto it = nodes.begin(); it != nodes.end(); ++it) {
-                if (it->data == val) {
-                    nodes.erase(it);
-                    return; 
-                }
-                else {
-                    std::cout << "There is no such element in the list.\n";
+        void remove(int val) {
+
+            if (!head) return;  
+
+            if (head->data == val) {
+                Node* temp = head;
+                head = head->next; 
+                delete temp; 
+                return;
+            }
+
+            Node* temp = head;
+
+            while (temp->next) {
+
+                if (temp->next->data == val) {
+                    Node* remove = temp->next;
+                    temp->next = temp->next->next;  
+                    delete remove; 
+                    return;
+                } else {
+                    std::cout << "There is no such value.\n";
                     return;
                 }
+
+                temp = temp->next;
+            }
+        }
+
+        ~LinkedList() {
+
+            while (head) {
+                Node* temp = head;
+                head = head->next;
+                delete temp;
             }
         }
 };
@@ -43,6 +86,7 @@ class LinkedList {
 
 int main() {
     LinkedList list;
+
     list.append(1);
     list.append(2);
     list.append(3);
@@ -51,8 +95,8 @@ int main() {
     std::cout << "Print list's elements: ";
     list.print();
 
-    std::cout << "Deleting an element from the list." << std::endl;
-    list.deleteValue(2);
+    std::cout << "Removing an element from the list." << std::endl;
+    list.remove(2);
     list.print();
 
     return 0;
